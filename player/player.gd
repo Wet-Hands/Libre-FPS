@@ -2,12 +2,13 @@ extends CharacterBody3D
 
 #TODO List
 #Rewrite Camera Control
-#DECIDE BASIC ASPECTS OF THE GAME (Such as the Visual Style, Multiplayer Structure, and the FUCKING NAME
+#DECIDE BASIC ASPECTS OF THE GAME (Such as the Visual Style, Multiplayer Structure, and the FUCKING NAME)
 #Complete MovementStateMachine
 
 #Movement Variables
 @export_category("Movement")
 @export var speed_default : float = 5.0
+@export var speed_sprint : float = 6.5
 @export var acceleration : float = 0.1
 @export var deceleration : float = 0.25
 @export var jump_velocity : float = 4.5
@@ -25,6 +26,7 @@ var input_direction
 @export_category("Node Declarations")
 @export var head : Node3D
 @export var cam : Camera3D
+@export var ray : RayCast3D
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -33,7 +35,9 @@ func _input(event: InputEvent) -> void:
 	update_camera(event)
 
 func _physics_process(delta: float) -> void:
-	update_movement(delta)
+	#update_movement(delta)
+	if Input.is_action_just_pressed("exit"):
+		get_tree().quit()
 
 func update_camera(event : InputEvent) -> void:
 	if event is InputEventMouseMotion: #If mouse is moving
@@ -42,10 +46,10 @@ func update_camera(event : InputEvent) -> void:
 		cam.rotation.x = clamp(cam.rotation.x, deg_to_rad(tilt_lower_limit), deg_to_rad(tilt_upper_limit)) #Stop turning so player's neck doesn't break
 		cam.rotation.y = 0
 		cam.rotation.z = 0
-		if cam.rotation.x <= -60 || cam.rotation.x >= 65:
+		if cam.rotation.x <= tilt_lower_limit || cam.rotation.x >= tilt_upper_limit:
 			cam.rotation.x = 0
 
-func update_movement(delta : float):
+func update_movement(speed : float, delta : float):
 	if !is_on_floor():
 		velocity.y -= gravity * delta
 	if Input.is_action_just_pressed("jump") && is_on_floor():
@@ -54,8 +58,8 @@ func update_movement(delta : float):
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (head.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
-		velocity.x = lerp(velocity.x, direction.x * speed_default, acceleration)
-		velocity.z = lerp(velocity.z, direction.z * speed_default, acceleration)
+		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
+		velocity.z = lerp(velocity.z, direction.z * speed, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration)
 		velocity.z = move_toward(velocity.z, 0, deceleration)

@@ -1,9 +1,10 @@
 class_name State extends Node
 
-@onready var player = self.get_parent().get_parent() #Currently the worst line of code
+@onready var player : CharacterBody3D = self.get_parent().get_parent() #Currently the worst line of code
+@onready var CAM_ANIMATION : AnimationPlayer = $"../CamAnimPlayer"
 var state_machine : StateMachine
 
-func enter() -> void:
+func enter(previous_state : State) -> void:
 	pass
 
 func exit() -> void:

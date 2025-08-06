@@ -13,7 +13,7 @@ func _ready() -> void:
 			states[child.name.to_lower()] = child
 	#If Initial State Declared, Enter the Initial State
 	if initial_state:
-		initial_state.enter()
+		initial_state.enter(initial_state)
 		current_state = initial_state
 
 func _process(delta: float) -> void:
@@ -31,5 +31,5 @@ func update_state(new_state_name : String):
 	
 	if current_state:
 		current_state.exit()
-	new_state.enter()
+	new_state.enter(current_state)
 	current_state = new_state

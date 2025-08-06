@@ -1,0 +1,8 @@
+res://test_world.tscn
+res://player/player.tscn
+res://player/scripts/movement_states/walk_state.gd
+res://player/scripts/movement_states/idle_state.gd
+res://player/player.gd
+res://player/scripts/state.gd
+res://player/scripts/state_machine.gd
+res://player/scripts/movement_states/sprint_state.gd

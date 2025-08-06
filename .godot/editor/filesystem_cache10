@@ -1,0 +1,13 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1754517230
+icon.svg::CompressedTexture2D::5840274642495410343::1754517130::1754517232::1::::<><><>0<>0<>0c9b9e0eab2100cb7c357a441112db44<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+test_world.tscn::PackedScene::8411341309368401318::1754517130::0::1::::<><><>0<>0<><>::uid://tux8rxwpsgpl::::res://player/player.tscn
+::res://player/::1754517130
+player.gd::GDScript::5953895018382740056::1754517130::0::1::::<>CharacterBody3D<><>0<>0<><>::
+player.tscn::PackedScene::1376331935684094369::1754517130::0::1::::<><><>0<>0<><>::uid://cq3d1s6qnx617::::res://player/player.gd<>uid://cmt1xtblo5tx4::::res://player/scripts/state_machine.gd<>uid://d2atcmgc2ew0v::::res://player/scripts/movement_states/idle_state.gd<>uid://d3knebo4nnwlq::::res://player/scripts/movement_states/walk_state.gd<>uid://cqvt0si7skyun::::res://player/scripts/state.gd
+::res://player/scripts/::1754517130
+state.gd::GDScript::5940414025397307781::1754517130::0::1::::State<>Node<><>0<>0<><>::
+state_machine.gd::GDScript::5655951383449624551::1754517130::0::1::::StateMachine<>Node<><>0<>0<><>::
+::res://player/scripts/movement_states/::1754517130
+idle_state.gd::GDScript::9055518663432713807::1754517130::0::1::::<>State<><>0<>0<><>::
+walk_state.gd::GDScript::9145989990052539702::1754517130::0::1::::<>State<><>0<>0<><>::
