@@ -1,9 +1,7 @@
 extends State
 
-var previous_state : State
 func enter(_previous_state : State) -> void:
 	CAM_ANIMATION.play("walk")
-	previous_state = _previous_state
 
 func physics_update(_delta : float) -> void:
 	#If Player is Not Moving, Change to Idle State
