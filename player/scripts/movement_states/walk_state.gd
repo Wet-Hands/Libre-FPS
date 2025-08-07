@@ -15,5 +15,8 @@ func physics_update(_delta : float) -> void:
 	if Input.is_action_pressed("sprint"):
 		state_machine.update_state("sprint")
 	
+	if player.velocity.y < -3.0 && !player.is_on_floor():
+		state_machine.update_state("falling")
+	
 	#Player Walks at Walk Speed
 	player.update_movement(player.speed_default, _delta)
