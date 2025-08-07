@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjdkcf7h3w32x"]
+
+[ext_resource type="Theme" uid="uid://0h3phgwq4mm7" path="res://user_interface/main_menu.theme" id="1_1aipp"]
+[ext_resource type="Script" uid="uid://d7ye0mw3nwdv" path="res://user_interface/main_menu.gd" id="1_xqlja"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xqlja")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -329.0
+offset_top = -217.5
+offset_right = 329.0
+offset_bottom = 217.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="ButtonContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_1aipp")
+text = "Libre FPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SinglePlayer" type="Button" parent="PanelContainer/MarginContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_1aipp")
+text = "Singleplayer Game"
+
+[node name="HostGame" type="Button" parent="PanelContainer/MarginContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_1aipp")
+text = "Host Game"
+
+[node name="JoinGame" type="Button" parent="PanelContainer/MarginContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_1aipp")
+text = "Join Game"
+
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_1aipp")
+text = "Settings"
+
+[node name="ExitGame" type="Button" parent="PanelContainer/MarginContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_1aipp")
+text = "Exit Game"
+
+[node name="HostContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HostContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_1aipp")
+text = "Host Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/ButtonContainer/SinglePlayer" to="." method="_on_single_player_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/ButtonContainer/ExitGame" to="." method="_on_exit_game_pressed"]

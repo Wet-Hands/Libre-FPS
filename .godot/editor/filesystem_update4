@@ -9,3 +9,7 @@ res://player/scripts/movement_states/sprint_state.gd
 res://player/scripts/reticle.gd
 res://player/scripts/movement_states/falling_state.gd
 res://player/scripts/interaction_ray.gd
+res://user_interface/main_menu.tscn
+res://user_interface/main_menu.theme
+res://user_interface/main_menu.gd
+res://scripts/interactable.gd
