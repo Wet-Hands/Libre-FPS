@@ -8,3 +8,4 @@ res://player/scripts/state_machine.gd
 res://player/scripts/movement_states/sprint_state.gd
 res://player/scripts/reticle.gd
 res://player/scripts/movement_states/falling_state.gd
+res://player/scripts/interaction_ray.gd

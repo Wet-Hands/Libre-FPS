@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://tux8rxwpsgpl"]
+[gd_scene load_steps=17 format=3 uid="uid://tux8rxwpsgpl"]
 
 [ext_resource type="Script" uid="uid://cq3d1s6qnx617" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://b7h16gnvxam6b" path="res://player/scripts/reticle.gd" id="2_boad6"]
 [ext_resource type="Script" uid="uid://cmt1xtblo5tx4" path="res://player/scripts/state_machine.gd" id="2_g1dw6"]
 [ext_resource type="Script" uid="uid://d2atcmgc2ew0v" path="res://player/scripts/movement_states/idle_state.gd" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://c7qaxs3iisfhs" path="res://player/scripts/interaction_ray.gd" id="3_hg6s5"]
 [ext_resource type="Script" uid="uid://d3knebo4nnwlq" path="res://player/scripts/movement_states/walk_state.gd" id="4_yw30f"]
 [ext_resource type="Script" uid="uid://crhibitlm1kb4" path="res://player/scripts/movement_states/sprint_state.gd" id="5_g6k8r"]
 [ext_resource type="Script" uid="uid://cqvt0si7skyun" path="res://player/scripts/state.gd" id="5_qjkh3"]
@@ -121,6 +122,7 @@ script = ExtResource("2_boad6")
 dot_radius = 2.0
 
 [node name="Line2D" type="Line2D" parent="UI/Reticle"]
+points = PackedVector2Array(20, 20)
 
 [node name="DEBUG" type="CanvasLayer" parent="UI"]
 
@@ -135,6 +137,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+
+[node name="InteractionRay" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -4)
+script = ExtResource("3_hg6s5")
+
+[node name="PromptRay" type="Label" parent="Head/Camera3D/InteractionRay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = 140.0
+offset_right = 61.5
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "{PROMPT HERE}"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_g1dw6")
@@ -165,3 +187,10 @@ metadata/_custom_type_script = "uid://cqvt0si7skyun"
 [node name="Falling" type="Node" parent="MovementStateMachine"]
 script = ExtResource("8_rgyib")
 metadata/_custom_type_script = "uid://cqvt0si7skyun"
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="UsernameLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17537, 0)
+billboard = 2
+text = "{USERNAME}"

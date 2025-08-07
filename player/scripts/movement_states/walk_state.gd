@@ -12,11 +12,12 @@ func physics_update(_delta : float) -> void:
 		state_machine.update_state("idle")
 	
 	#If Player Presses 'Sprint Button' While Walking
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") && player.is_on_floor():
 		state_machine.update_state("sprint")
 	
+	#If Player is Falling, Change to Falling State
 	if player.velocity.y < -3.0 && !player.is_on_floor():
 		state_machine.update_state("falling")
 	
-	#Player Walks at Walk Speed
+	#Player Moves at Walk Speed
 	player.update_movement(player.speed_default, _delta)

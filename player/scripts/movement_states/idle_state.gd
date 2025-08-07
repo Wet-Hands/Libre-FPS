@@ -1,6 +1,6 @@
 extends State
 
-func enter(previous_state : State) -> void:
+func enter(_previous_state : State) -> void:
 	CAM_ANIMATION.pause()
 
 func physics_update(_delta : float) -> void:
