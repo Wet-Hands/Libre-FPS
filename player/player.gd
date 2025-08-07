@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export_category("Movement")
 @export var speed_default : float = 5.0
 @export var speed_sprint : float = 6.5
+@export var speed_crouch : float = 3.5
 @export var acceleration : float = 0.1
 @export var deceleration : float = 0.25
 @export var jump_velocity : float = 4.5
@@ -21,7 +22,7 @@ extends CharacterBody3D
 @export var tilt_lower_limit : float = -90.0
 
 #Control Variables
-var input_direction
+var input_direction : Vector2
 var mouse_input : Vector2
 var input_rotation : Vector3
 
@@ -81,6 +82,4 @@ func update_movement(speed : float, delta : float):
 		velocity.x = move_toward(velocity.x, 0, deceleration)
 		velocity.z = move_toward(velocity.z, 0, deceleration)
 	
-	#cam.global_transform = cam_anchor.get_global_transform_interpolated()
 	move_and_slide()
-	
