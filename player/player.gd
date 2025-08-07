@@ -22,19 +22,24 @@ extends CharacterBody3D
 
 #Control Variables
 var input_direction
+var mouse_input : Vector2
+var input_rotation : Vector3
 
 @export_category("Node Declarations")
 @export var head : Node3D
 @export var cam : Camera3D
 @export var ray : RayCast3D
+@export var cam_anchor : Marker3D
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Engine.max_fps = 120
 
 func _input(event: InputEvent) -> void:
 	update_camera(event)
 
-func _physics_process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	$UI/DEBUG/FPSLabel.text = str(Engine.get_frames_per_second())
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 
@@ -47,6 +52,19 @@ func update_camera(event : InputEvent) -> void:
 		cam.rotation.z = 0
 		if cam.rotation.x <= tilt_lower_limit || cam.rotation.x >= tilt_upper_limit:
 			cam.rotation.x = 0
+
+func bad_update_camera(event : InputEvent) -> void:
+	if event is InputEventMouseMotion: #If mouse is moving
+		mouse_input.x += -event.screen_relative.x * camera_sensitivity
+		mouse_input.y += -event.screen_relative.y * camera_sensitivity
+	input_rotation.x = clampf(input_rotation.x + mouse_input.y, deg_to_rad(tilt_lower_limit), deg_to_rad(tilt_upper_limit))
+	input_rotation.y += mouse_input.x
+	
+	cam_anchor.transform.basis = Basis.from_euler(Vector3(input_rotation.x, 0.0, 0.0))
+	self.global_transform.basis = Basis.from_euler(Vector3(0.0, input_rotation.y, 0.0))
+	
+	cam.global_transform = cam_anchor.get_global_transform_interpolated()
+	mouse_input = Vector2.ZERO
 
 func update_movement(speed : float, delta : float):
 	if !is_on_floor():
@@ -63,4 +81,6 @@ func update_movement(speed : float, delta : float):
 		velocity.x = move_toward(velocity.x, 0, deceleration)
 		velocity.z = move_toward(velocity.z, 0, deceleration)
 	
+	#cam.global_transform = cam_anchor.get_global_transform_interpolated()
 	move_and_slide()
+	
