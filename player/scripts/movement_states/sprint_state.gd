@@ -1,7 +1,9 @@
 extends State
 
+@export var walk_anim_speed : float = 1.5
+
 func enter(previous_state : State) -> void:
-	CAM_ANIMATION.play("sprint")
+	CAM_ANIMATION.speed_scale = walk_anim_speed
 
 func physics_update(_delta : float) -> void:
 	#If Player is Not Moving, Change to Idle State

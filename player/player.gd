@@ -35,7 +35,6 @@ func _input(event: InputEvent) -> void:
 	update_camera(event)
 
 func _physics_process(delta: float) -> void:
-	#update_movement(delta)
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 

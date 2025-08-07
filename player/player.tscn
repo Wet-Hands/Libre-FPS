@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://tux8rxwpsgpl"]
+[gd_scene load_steps=15 format=3 uid="uid://tux8rxwpsgpl"]
 
 [ext_resource type="Script" uid="uid://cq3d1s6qnx617" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://b7h16gnvxam6b" path="res://player/scripts/reticle.gd" id="2_boad6"]
 [ext_resource type="Script" uid="uid://cmt1xtblo5tx4" path="res://player/scripts/state_machine.gd" id="2_g1dw6"]
 [ext_resource type="Script" uid="uid://d2atcmgc2ew0v" path="res://player/scripts/movement_states/idle_state.gd" id="3_g1dw6"]
 [ext_resource type="Script" uid="uid://d3knebo4nnwlq" path="res://player/scripts/movement_states/walk_state.gd" id="4_yw30f"]
@@ -15,7 +16,8 @@ rings = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_yw30f"]
 font_size = 32
-font_color = Color(0.23, 0.23, 0.23, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_qjkh3"]
 resource_name = "walk"
@@ -78,7 +80,9 @@ _data = {
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam", "ray")]
 script = ExtResource("1_oul6g")
 speed_default = 4.5
-jump_velocity = 3.5
+speed_sprint = 7.0
+deceleration = 0.2
+jump_velocity = 4.25
 head = NodePath("Head")
 cam = NodePath("Head/Camera3D")
 ray = NodePath("Head/Camera3D/RayCast3D")
@@ -91,7 +95,31 @@ shape = SubResource("CapsuleShape3D_kqu6x")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_kqu6x")
 
-[node name="UI" type="Node" parent="."]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Reticle" type="CenterContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_boad6")
+dot_radius = 2.0
+
+[node name="Line2D" type="Line2D" parent="UI/Reticle"]
 
 [node name="DEBUG" type="CanvasLayer" parent="UI"]
 

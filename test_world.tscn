@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dr3rtegwemx4q"]
+[gd_scene load_steps=12 format=3 uid="uid://dr3rtegwemx4q"]
 
 [ext_resource type="PackedScene" uid="uid://tux8rxwpsgpl" path="res://player/player.tscn" id="1_dxppu"]
+[ext_resource type="Texture2D" uid="uid://bohtvm2gniw1p" path="res://levels/assets/Kenney-Proto/Dark/texture_08.png" id="2_gy3sr"]
+[ext_resource type="Texture2D" uid="uid://bmbdv3gxifrar" path="res://levels/assets/Kenney-Proto/Purple/texture_10.png" id="3_1lwx6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dxppu"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -17,11 +19,19 @@ tonemap_mode = 2
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_dxppu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxppu"]
-albedo_color = Color(0.152, 0.76, 0.1824, 1)
+albedo_color = Color(0.0888533, 0.16, 0.0864, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gy3sr"]
 material = SubResource("StandardMaterial3D_dxppu")
-size = Vector2(20, 20)
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lwx6"]
+albedo_texture = ExtResource("2_gy3sr")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsnr4"]
+albedo_texture = ExtResource("3_1lwx6")
+uv1_triplanar = true
 
 [node name="TestWorld" type="Node3D"]
 
@@ -41,4 +51,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("WorldBoundaryShape3D_dxppu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+visible = false
 mesh = SubResource("PlaneMesh_gy3sr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.561626, 0)
+size = Vector3(50, 1, 50)
+material = SubResource("StandardMaterial3D_1lwx6")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -5)
+radius = 2.0
+material = SubResource("StandardMaterial3D_dsnr4")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.5, -9)
+radius = 2.0
+height = 3.0
+material = SubResource("StandardMaterial3D_dsnr4")
