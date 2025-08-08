@@ -4,3 +4,7 @@ res://player/player.tscn
 res://user_interface/main_menu.tscn
 res://user_interface/multiplayer_manager.gd
 res://player/scripts/movement_states/jump.gd
+res://user_interface/main_menu.gd
+res://scripts/state_machine.gd
+res://player/player.gd
+res://player/scripts/input_synchronizer.gd

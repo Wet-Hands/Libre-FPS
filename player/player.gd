@@ -33,18 +33,29 @@ var input_rotation : Vector3
 @export var cam_anchor : Marker3D
 
 #Multiplayer Player Data
-var player_id : int
-var username : String = "{USERNAME}"
+@export_category("Multiplayer")
+@export var player_id : int = 1:
+	set(id):
+		player_id = id
+		input_sync.set_multiplayer_authority(id)
+@export var username : String = "{USERNAME}"
+@export var input_sync : MultiplayerSynchronizer
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Engine.max_fps = 120
+	$UsernameLabel.text = str(player_id)
+	if multiplayer.get_unique_id() == player_id:
+		cam.make_current()
+	else:
+		cam.clear_current()
 
 func _input(event: InputEvent) -> void:
 	update_camera(event)
 
 func _process(delta: float) -> void:
 	#print(self.velocity.y)
+	if !multiplayer.is_server(): return
 	$UI/DEBUG/FPSLabel.text = str(Engine.get_frames_per_second())
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
@@ -73,12 +84,13 @@ func bad_update_camera(event : InputEvent) -> void:
 	mouse_input = Vector2.ZERO
 
 func update_movement(speed : float, delta : float):
+	if !multiplayer.is_server(): return
 	if !is_on_floor():
 		velocity.y -= gravity * delta
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		velocity.y = jump_velocity
 	
-	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	input_direction = input_sync.input_direction
 	var direction = (head.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)

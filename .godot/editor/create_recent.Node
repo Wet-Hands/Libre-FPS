@@ -1,3 +1,4 @@
+MultiplayerSynchronizer
 Node
 MultiplayerSpawner
 State
@@ -11,4 +12,3 @@ CollisionShape3D
 RigidBody3D
 Button
 VBoxContainer
-Label

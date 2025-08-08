@@ -11,7 +11,5 @@ func _on_host_game_pressed() -> void:
 	$PanelContainer.hide()
 
 func _on_join_game_pressed() -> void:
-	#var level = test_world.instantiate()
-	#self.add_child(level)_players_spawn_node = get_tree().
 	$MultiplayerManager.join_as_client()
 	$PanelContainer.hide()

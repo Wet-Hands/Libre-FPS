@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://tux8rxwpsgpl"]
+[gd_scene load_steps=21 format=3 uid="uid://tux8rxwpsgpl"]
 
 [ext_resource type="Script" uid="uid://cq3d1s6qnx617" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://d0pli0c5vern4" path="res://player/scripts/input_synchronizer.gd" id="2_2ieo8"]
 [ext_resource type="Script" uid="uid://b7h16gnvxam6b" path="res://player/scripts/reticle.gd" id="2_boad6"]
 [ext_resource type="Script" uid="uid://cmt1xtblo5tx4" path="res://scripts/state_machine.gd" id="2_g1dw6"]
 [ext_resource type="Script" uid="uid://d2atcmgc2ew0v" path="res://player/scripts/movement_states/idle_state.gd" id="3_g1dw6"]
@@ -10,6 +11,22 @@
 [ext_resource type="Script" uid="uid://ua0378jjywtd" path="res://player/scripts/movement_states/crouch_state.gd" id="8_hg6s5"]
 [ext_resource type="Script" uid="uid://bgw0erdybwy1d" path="res://player/scripts/movement_states/falling_state.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://ni03ohbew1cx" path="res://player/scripts/movement_states/jump.gd" id="9_8t03j"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2ieo8"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8t03j"]
+properties/0/path = NodePath("InputSynchronizer:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
 
@@ -78,7 +95,7 @@ _data = {
 &"walk": SubResource("Animation_qjkh3")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam", "ray", "cam_anchor")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam", "ray", "cam_anchor", "input_sync")]
 script = ExtResource("1_oul6g")
 speed_default = 4.5
 speed_sprint = 7.0
@@ -88,6 +105,14 @@ head = NodePath("Head")
 cam = NodePath("Head/Camera3D")
 ray = NodePath("Head/Camera3D/RayCast3D")
 cam_anchor = NodePath("CameraAnchor")
+input_sync = NodePath("InputSynchronizer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2ieo8")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8t03j")
+script = ExtResource("2_2ieo8")
 
 [node name="PlayerData" type="Node" parent="."]
 
@@ -141,7 +166,6 @@ label_settings = SubResource("LabelSettings_yw30f")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
-current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 

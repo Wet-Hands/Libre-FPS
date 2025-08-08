@@ -1,7 +1,7 @@
 extends State
 
 func update(delta : float) -> void:
-	#Picking Speed Based on if Jumped while Walking or Sprinting
+	#Picking Speed Based on if Jumped while Sprinting
 	if previous_state.name.to_lower() == "sprint":
 		player.update_movement(player.speed_sprint, delta)
 	else:
