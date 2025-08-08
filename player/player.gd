@@ -61,7 +61,6 @@ func _process(delta: float) -> void:
 		get_tree().quit()
 
 func update_camera(event : InputEvent) -> void:
-	#if multiplayer.is_server(): return
 	if event is InputEventMouseMotion: #If mouse is moving
 		head.rotate_y(-event.relative.x * camera_sensitivity * get_process_delta_time()) #Look left and right
 		cam.rotate_x(-event.relative.y * camera_sensitivity * get_process_delta_time()) #Look up and down
@@ -85,11 +84,11 @@ func bad_update_camera(event : InputEvent) -> void:
 	mouse_input = Vector2.ZERO
 
 func update_movement(speed : float, delta : float):
-	#if !input_sync.get_multiplayer_authority() == multiplayer.get_unique_id():
-		#return
 	if !is_multiplayer_authority(): return
+
 	if !is_on_floor():
 		velocity.y -= gravity * delta
+
 	if do_jump == true:
 		if is_on_floor():
 			velocity.y = jump_velocity

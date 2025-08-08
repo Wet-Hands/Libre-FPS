@@ -119,9 +119,10 @@ input_sync = NodePath("InputSynchronizer")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_2ieo8")
 
-[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("player")]
 replication_config = SubResource("SceneReplicationConfig_8t03j")
 script = ExtResource("2_2ieo8")
+player = NodePath("..")
 
 [node name="PlayerData" type="Node" parent="."]
 

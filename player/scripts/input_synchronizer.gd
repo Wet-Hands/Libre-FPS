@@ -1,6 +1,6 @@
 extends MultiplayerSynchronizer
 
-var player : CharacterBody3D = get_parent()
+@export var player : CharacterBody3D
 
 var input_direction : Vector2
 var camera_direction : Vector2
@@ -14,11 +14,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	head_transform = $"../Head".transform
+	head_transform = player.head.transform
 	if Input.is_action_just_pressed("jump"):
 		jump.rpc()
 
 @rpc("call_local")
 func jump() -> void:
 	if multiplayer.is_server():
-		$"..".do_jump = true
+		player.do_jump = true
