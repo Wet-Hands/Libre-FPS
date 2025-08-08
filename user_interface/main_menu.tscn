@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjdkcf7h3w32x"]
+[gd_scene load_steps=4 format=3 uid="uid://bjdkcf7h3w32x"]
 
 [ext_resource type="Theme" uid="uid://0h3phgwq4mm7" path="res://user_interface/main_menu.theme" id="1_1aipp"]
 [ext_resource type="Script" uid="uid://d7ye0mw3nwdv" path="res://user_interface/main_menu.gd" id="1_xqlja"]
+[ext_resource type="Script" uid="uid://ro8rrkbvvu53" path="res://user_interface/multiplayer_manager.gd" id="3_ejyv4"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -86,5 +87,17 @@ text = "Host Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MultiplayerManager" type="Node" parent="."]
+script = ExtResource("3_ejyv4")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://tux8rxwpsgpl")
+spawn_path = NodePath("../Players")
+spawn_limit = 2
+
+[node name="Players" type="Node" parent="."]
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/ButtonContainer/SinglePlayer" to="." method="_on_single_player_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/ButtonContainer/HostGame" to="." method="_on_host_game_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/ButtonContainer/JoinGame" to="." method="_on_join_game_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/ButtonContainer/ExitGame" to="." method="_on_exit_game_pressed"]

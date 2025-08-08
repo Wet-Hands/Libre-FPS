@@ -32,6 +32,10 @@ var input_rotation : Vector3
 @export var ray : RayCast3D
 @export var cam_anchor : Marker3D
 
+#Multiplayer Player Data
+var player_id : int
+var username : String = "{USERNAME}"
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Engine.max_fps = 120
@@ -40,6 +44,7 @@ func _input(event: InputEvent) -> void:
 	update_camera(event)
 
 func _process(delta: float) -> void:
+	#print(self.velocity.y)
 	$UI/DEBUG/FPSLabel.text = str(Engine.get_frames_per_second())
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()

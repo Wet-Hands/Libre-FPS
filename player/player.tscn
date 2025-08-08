@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://tux8rxwpsgpl"]
+[gd_scene load_steps=18 format=3 uid="uid://tux8rxwpsgpl"]
 
 [ext_resource type="Script" uid="uid://cq3d1s6qnx617" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://b7h16gnvxam6b" path="res://player/scripts/reticle.gd" id="2_boad6"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://crhibitlm1kb4" path="res://player/scripts/movement_states/sprint_state.gd" id="5_g6k8r"]
 [ext_resource type="Script" uid="uid://ua0378jjywtd" path="res://player/scripts/movement_states/crouch_state.gd" id="8_hg6s5"]
 [ext_resource type="Script" uid="uid://bgw0erdybwy1d" path="res://player/scripts/movement_states/falling_state.gd" id="8_rgyib"]
+[ext_resource type="Script" uid="uid://ni03ohbew1cx" path="res://player/scripts/movement_states/jump.gd" id="9_8t03j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
 
@@ -193,6 +194,10 @@ metadata/_custom_type_script = "uid://cqvt0si7skyun"
 
 [node name="Crouch" type="Node" parent="MovementStateMachine"]
 script = ExtResource("8_hg6s5")
+metadata/_custom_type_script = "uid://cqvt0si7skyun"
+
+[node name="Jump" type="Node" parent="MovementStateMachine"]
+script = ExtResource("9_8t03j")
 metadata/_custom_type_script = "uid://cqvt0si7skyun"
 
 [node name="Falling" type="Node" parent="MovementStateMachine"]

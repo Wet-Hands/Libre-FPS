@@ -1,3 +1,6 @@
+Node
+MultiplayerSpawner
+State
 TextureRect
 Sprite2D
 HBoxContainer
@@ -9,7 +12,3 @@ RigidBody3D
 Button
 VBoxContainer
 Label
-MarginContainer
-PanelContainer
-Panel
-AudioStreamPlayer3D

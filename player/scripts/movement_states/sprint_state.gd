@@ -14,6 +14,10 @@ func physics_update(_delta : float) -> void:
 	if Input.is_action_just_released("sprint"):
 		state_machine.update_state("walk")
 
+	#If Player is Moving Up, Change to Jump State
+	if player.velocity.y > 0.0 && !player.is_on_floor():
+		state_machine.update_state("jump")
+
 	#If Player is Falling, Change to Falling State
 	if player.velocity.y < -3.0 && !player.is_on_floor():
 		state_machine.update_state("falling")
