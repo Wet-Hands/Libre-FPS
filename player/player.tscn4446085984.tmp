@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://tux8rxwpsgpl"]
+[gd_scene load_steps=22 format=3 uid="uid://tux8rxwpsgpl"]
 
 [ext_resource type="Script" uid="uid://cq3d1s6qnx617" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://d0pli0c5vern4" path="res://player/scripts/input_synchronizer.gd" id="2_2ieo8"]
 [ext_resource type="Script" uid="uid://b7h16gnvxam6b" path="res://player/scripts/reticle.gd" id="2_boad6"]
 [ext_resource type="Script" uid="uid://cmt1xtblo5tx4" path="res://scripts/state_machine.gd" id="2_g1dw6"]
-[ext_resource type="Texture2D" uid="uid://d1xol4sr4ntae" path="res://levels/assets/Kenney-Proto/Light/texture_07.png" id="3_ebec5"]
 [ext_resource type="Script" uid="uid://d2atcmgc2ew0v" path="res://player/scripts/movement_states/idle_state.gd" id="3_g1dw6"]
 [ext_resource type="Script" uid="uid://c7qaxs3iisfhs" path="res://player/scripts/interaction_ray.gd" id="3_hg6s5"]
 [ext_resource type="Script" uid="uid://d3knebo4nnwlq" path="res://player/scripts/movement_states/walk_state.gd" id="4_yw30f"]
@@ -28,23 +27,18 @@ properties/2/replication_mode = 1
 properties/0/path = NodePath("InputSynchronizer:input_direction")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("InputSynchronizer:head_transform")
-properties/1/spawn = true
-properties/1/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yllr7"]
-albedo_texture = ExtResource("3_ebec5")
-albedo_texture_force_srgb = true
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kqu6x"]
-material = SubResource("StandardMaterial3D_yllr7")
 
 [sub_resource type="LabelSettings" id="LabelSettings_yw30f"]
 font_size = 32
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ieo8"]
+size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="Animation" id="Animation_g6k8r"]
 length = 0.001
@@ -200,6 +194,12 @@ grow_vertical = 2
 text = "{PROMPT HERE}"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.420528, -0.481847)
+visible = false
+mesh = SubResource("BoxMesh_2ieo8")
+skeleton = NodePath("../..")
 
 [node name="CameraAnchor" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

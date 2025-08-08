@@ -25,6 +25,7 @@ extends CharacterBody3D
 var input_direction : Vector2
 var mouse_input : Vector2
 var input_rotation : Vector3
+var do_jump : bool = false
 
 @export_category("Node Declarations")
 @export var head : Node3D
@@ -47,20 +48,20 @@ func _ready() -> void:
 	$UsernameLabel.text = str(player_id)
 	if multiplayer.get_unique_id() == player_id:
 		cam.make_current()
+		$UI/DEBUG.show()
 	else:
-		cam.clear_current()
+		$UI/DEBUG.hide()
 
 func _input(event: InputEvent) -> void:
 	update_camera(event)
 
 func _process(delta: float) -> void:
-	#print(self.velocity.y)
-	if !multiplayer.is_server(): return
 	$UI/DEBUG/FPSLabel.text = str(Engine.get_frames_per_second())
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 
 func update_camera(event : InputEvent) -> void:
+	#if multiplayer.is_server(): return
 	if event is InputEventMouseMotion: #If mouse is moving
 		head.rotate_y(-event.relative.x * camera_sensitivity * get_process_delta_time()) #Look left and right
 		cam.rotate_x(-event.relative.y * camera_sensitivity * get_process_delta_time()) #Look up and down
@@ -84,14 +85,18 @@ func bad_update_camera(event : InputEvent) -> void:
 	mouse_input = Vector2.ZERO
 
 func update_movement(speed : float, delta : float):
-	if !multiplayer.is_server(): return
+	#if !input_sync.get_multiplayer_authority() == multiplayer.get_unique_id():
+		#return
+	if !is_multiplayer_authority(): return
 	if !is_on_floor():
 		velocity.y -= gravity * delta
-	if Input.is_action_just_pressed("jump") && is_on_floor():
-		velocity.y = jump_velocity
+	if do_jump == true:
+		if is_on_floor():
+			velocity.y = jump_velocity
+		do_jump = false
 	
 	input_direction = input_sync.input_direction
-	var direction = (head.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+	var direction = (input_sync.head_transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
 		velocity.z = lerp(velocity.z, direction.z * speed, acceleration)
