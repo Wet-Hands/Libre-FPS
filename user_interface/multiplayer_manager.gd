@@ -30,6 +30,9 @@ func join_as_client() -> void:
 	client_peer.create_client(SERVER_IP, SERVER_PORT)
 	
 	multiplayer.multiplayer_peer = client_peer
+	
+	var level = test_world.instantiate()
+	self.add_child(level)
 	#_add_player_to_game(randi_range(1000, 9999))
 
 func _add_player_to_game(id : int) -> void:

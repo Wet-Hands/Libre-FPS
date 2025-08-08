@@ -141,6 +141,7 @@ label_settings = SubResource("LabelSettings_yw30f")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 
