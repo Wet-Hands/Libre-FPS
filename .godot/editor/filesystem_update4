@@ -1,8 +1,5 @@
-res://test_world.tscn
-res://user_interface/main_menu.theme
-res://player/player.gd
-res://player/player.tscn
 res://user_interface/main_menu.tscn
-res://player/scripts/movement_states/falling_state.gd
-res://player/scripts/movement_states/idle_state.gd
-res://player/scripts/movement_states/crouch_state.gd
+res://user_interface/main_menu.theme
+res://test_world.tscn
+res://player/player.tscn
+res://player/scripts/reticle.gd

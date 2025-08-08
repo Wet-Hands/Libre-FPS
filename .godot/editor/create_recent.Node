@@ -1,3 +1,6 @@
+TextureRect
+Sprite2D
+HBoxContainer
 Marker3D
 Area3D
 MeshInstance3D
@@ -10,6 +13,3 @@ MarginContainer
 PanelContainer
 Panel
 AudioStreamPlayer3D
-Label3D
-RayCast3D
-Node

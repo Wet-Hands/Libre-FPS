@@ -12,4 +12,4 @@ func _process(_delta: float) -> void:
 	pass
 
 func _draw() -> void:
-	draw_circle(Vector2(0, 0), dot_radius, dot_color)
+	draw_circle(Vector2(20, 20), dot_radius, dot_color)
