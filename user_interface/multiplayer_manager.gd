@@ -42,7 +42,7 @@ func _add_player_to_game(id : int) -> void:
 	player_to_add.username = "{USERNAME}"
 	
 	player_to_add.position.x = randi_range(-5, 5)
-	player_to_add.position.y = randi_range(5, 10)
+	player_to_add.position.y = 2
 	player_to_add.position.z = randi_range(-5, 5)
 	
 	_players_spawn_node.add_child(player_to_add, true)

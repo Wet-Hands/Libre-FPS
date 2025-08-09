@@ -49,13 +49,15 @@ func _ready() -> void:
 	if multiplayer.get_unique_id() == player_id:
 		cam.make_current()
 		$UI/DEBUG.show()
+		$UI.show()
 	else:
 		$UI/DEBUG.hide()
+		$UI.hide()
 
 func _input(event: InputEvent) -> void:
 	update_camera(event)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$UI/DEBUG/FPSLabel.text = str(Engine.get_frames_per_second())
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
@@ -84,18 +86,22 @@ func bad_update_camera(event : InputEvent) -> void:
 	mouse_input = Vector2.ZERO
 
 func update_movement(speed : float, delta : float):
-	if !is_multiplayer_authority(): return
+	#if !is_multiplayer_authority(): return
+	#if $InputSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id(): return
+	if !multiplayer.is_server(): return
 
-	if !is_on_floor():
+	if !input_sync.on_floor:
 		velocity.y -= gravity * delta
 
 	if do_jump == true:
-		if is_on_floor():
+		if input_sync.on_floor:
 			velocity.y = jump_velocity
 		do_jump = false
 	
 	input_direction = input_sync.input_direction
 	var direction = (input_sync.head_transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+	if multiplayer.get_unique_id() != 1:
+		print(str(direction) + " " + str(multiplayer.get_unique_id()))
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
 		velocity.z = lerp(velocity.z, direction.z * speed, acceleration)

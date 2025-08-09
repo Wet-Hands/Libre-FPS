@@ -1,6 +1,7 @@
 class_name State extends Node
 
 @onready var player : CharacterBody3D = self.get_parent().get_parent() #Currently the worst line of code
+@onready var input_sync : MultiplayerSynchronizer = player.get_node("InputSynchronizer")
 @onready var CAM_ANIMATION : AnimationPlayer = $"../CamAnimPlayer"
 
 var state_machine : StateMachine

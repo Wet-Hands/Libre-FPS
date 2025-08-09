@@ -8,3 +8,7 @@ res://user_interface/main_menu.gd
 res://scripts/state_machine.gd
 res://player/player.gd
 res://player/scripts/input_synchronizer.gd
+res://scripts/state.gd
+res://player/scripts/movement_states/idle_state.gd
+res://player/scripts/movement_states/walk_state.gd
+res://player/scripts/movement_states/falling_state.gd
