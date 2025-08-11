@@ -14,6 +14,7 @@ extends CharacterBody3D
 @export var deceleration : float = 0.25
 @export var jump_velocity : float = 4.5
 @export var gravity : float = 9.81
+var state_speed = 5
 
 #Camera Variables
 @export_category("Camera")
@@ -86,27 +87,28 @@ func bad_update_camera(event : InputEvent) -> void:
 	mouse_input = Vector2.ZERO
 
 func update_movement(speed : float, delta : float):
-	#if !is_multiplayer_authority(): return
-	#if $InputSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id(): return
-	if !multiplayer.is_server(): return
+	pass
 
-	if !input_sync.on_floor:
-		velocity.y -= gravity * delta
+func _physics_process(delta: float) -> void:
+	if multiplayer.is_server():
+		apply_movement_from_input(delta, state_speed)
 
-	if do_jump == true:
-		if input_sync.on_floor:
+func apply_movement_from_input(delta, speed):
+		if !input_sync.on_floor:
+			print("SHOULD FALL")
+			velocity.y -= gravity * delta
+
+		if do_jump == true && input_sync.on_floor:
 			velocity.y = jump_velocity
-		do_jump = false
-	
-	input_direction = input_sync.input_direction
-	var direction = (input_sync.head_transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
-	if multiplayer.get_unique_id() != 1:
-		print(str(direction) + " " + str(multiplayer.get_unique_id()))
-	if direction:
-		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
-		velocity.z = lerp(velocity.z, direction.z * speed, acceleration)
-	else:
-		velocity.x = move_toward(velocity.x, 0, deceleration)
-		velocity.z = move_toward(velocity.z, 0, deceleration)
-	
-	move_and_slide()
+			do_jump = false
+		
+		input_direction = input_sync.input_direction
+		var direction = (input_sync.head_transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+		if direction:
+			velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
+			velocity.z = lerp(velocity.z, direction.z * speed, acceleration)
+		else:
+			velocity.x = move_toward(velocity.x, 0, deceleration)
+			velocity.z = move_toward(velocity.z, 0, deceleration)
+		
+		move_and_slide()

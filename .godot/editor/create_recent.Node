@@ -1,8 +1,8 @@
+State
 MeshInstance3D
 MultiplayerSynchronizer
 Node
 MultiplayerSpawner
-State
 TextureRect
 Sprite2D
 HBoxContainer

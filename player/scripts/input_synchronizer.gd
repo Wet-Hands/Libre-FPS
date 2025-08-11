@@ -1,6 +1,6 @@
 extends MultiplayerSynchronizer
 
-@export var player : CharacterBody3D
+#@export var player : CharacterBody3D
 @export var movement_state_machine : StateMachine
 
 var input_direction : Vector2
@@ -20,14 +20,15 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	head_transform = player.head.transform
-	velocity = player.velocity
+	head_transform = get_parent().head.transform
+	
+	velocity = get_parent().velocity
 	$"../UI/DEBUG/VelocityLabel".text = str(velocity)
-	on_floor = player.is_on_floor()
+	on_floor = get_parent().is_on_floor()
 	if Input.is_action_just_pressed("jump"):
 		jump.rpc()
 
 @rpc("call_local")
 func jump() -> void:
 	if multiplayer.is_server():
-		player.do_jump = true
+		get_parent().do_jump = true

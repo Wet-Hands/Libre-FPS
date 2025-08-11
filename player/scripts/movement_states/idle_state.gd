@@ -15,6 +15,9 @@ func physics_update(_delta : float) -> void:
 	#If Player is Falling, Change to Falling State
 	if input_sync.velocity.y < -3.0 && !input_sync.on_floor:
 		state_machine.update_state("falling")
+		print("Fall")
 	
 	#Player "Moves"
-	player.update_movement(player.speed_default, _delta)
+	#player.update_movement(player.speed_default, _delta)
+	player.state_speed = player.speed_default
+	#print("YOU GOT THIS" + str($"../../InputSynchronizer".get_multiplayer_authority()))
