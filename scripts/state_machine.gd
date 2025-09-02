@@ -1,7 +1,7 @@
 class_name StateMachine extends Node
 
 @export var initial_state : State
-var current_state : State
+@export var current_state : State
 
 var states : Dictionary[String, State] = {}
 

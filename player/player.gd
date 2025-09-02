@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 
 func apply_movement_from_input(delta, speed):
 		if !input_sync.on_floor:
-			print("SHOULD FALL")
+			#print("SHOULD FALL")
 			velocity.y -= gravity * delta
 
 		if do_jump == true && input_sync.on_floor:

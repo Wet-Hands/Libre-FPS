@@ -6,6 +6,7 @@ func enter(_previous_state : State) -> void:
 	CAM_ANIMATION.play("walk")
 	CAM_ANIMATION.speed_scale = walk_anim_speed
 	print("WALK")
+	$"../../UsernameLabel".text = "Walk"
 
 func physics_update(_delta : float) -> void:
 	#If Player is Not Moving, Change to Idle State

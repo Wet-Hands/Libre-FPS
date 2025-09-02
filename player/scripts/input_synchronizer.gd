@@ -10,6 +10,8 @@ var head_transform : Transform3D
 var velocity : Vector3
 var on_floor : bool = false
 
+var current_state : State
+
 func _ready() -> void:
 	if get_multiplayer_authority() != multiplayer.get_unique_id():
 		set_process(false)
@@ -21,6 +23,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	head_transform = get_parent().head.transform
+	current_state = $"../MovementStateMachine".current_state
 	
 	velocity = get_parent().velocity
 	$"../UI/DEBUG/VelocityLabel".text = str(velocity)

@@ -2,11 +2,13 @@ extends State
 
 func enter(_previous_state : State) -> void:
 	CAM_ANIMATION.pause()
+	$"../../UsernameLabel".text = "Idle"
 
 func physics_update(_delta : float) -> void:
 	#If Player is Moving, Change to Walk State
 	if input_sync.velocity.length() > 0.0 && input_sync.on_floor:
 		state_machine.update_state("walk")
+		print("WALK")
 
 	#If Player is Moving Up, Change to Jump State
 	if input_sync.velocity.y > 0.0 && !input_sync.on_floor:
